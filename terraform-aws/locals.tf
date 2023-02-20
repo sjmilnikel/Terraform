@@ -8,11 +8,17 @@ locals {
       name        = "public_sg"
       description = "public access"
       ingress = {
-        ssh = {
-          from        = 22
-          to          = 22
-          protocol    = "tcp"
+        open = {
+          from        = 0
+          to          = 0
+          protocol    = -1
           cidr_blocks = [var.access_ip]
+        }
+        tg = {
+          from        = 8000
+          to          = 8000
+          protocol    = "tcp"
+          cidr_blocks = ["0.0.0.0/0"]
         }
         http = {
           from        = 80
