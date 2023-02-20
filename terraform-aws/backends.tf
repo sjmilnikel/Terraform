@@ -1,9 +1,10 @@
 terraform {
-  cloud {
-    organization = "sjm-mtc-terraform"
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "derekops"
 
     workspaces {
-      name = "sjm-mtc-dev"
+      name = "mtc-aws"
     }
   }
 }

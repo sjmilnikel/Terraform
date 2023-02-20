@@ -1,5 +1,3 @@
-# --- compute/main.tf ---
-
 data "aws_ami" "server_ami" {
   most_recent = true
 
@@ -25,8 +23,8 @@ resource "aws_key_pair" "mtc_auth" {
 }
 
 resource "aws_instance" "mtc_node" {
-  count         = var.instance_count # 1
-  instance_type = var.instance_type  # t3.micro
+  count         = var.instance_count
+  instance_type = var.instance_type
   ami           = data.aws_ami.server_ami.id
 
   tags = {
@@ -45,8 +43,25 @@ resource "aws_instance" "mtc_node" {
       dbname      = var.dbname
     }
   )
+
+
   root_block_device {
-    volume_size = var.vol_size # 10
+    volume_size = var.vol_size
+  }
+  provisioner "local-exec" {
+    command = templatefile("${path.cwd}/scp_script.tpl",
+      {
+        nodeip   = self.public_ip
+        k3s_path = "${path.cwd}/../"
+        nodename = self.tags.Name
+      }
+    )
   }
 }
 
+resource "aws_lb_target_group_attachment" "mtc_tg_attach" {
+  count            = var.instance_count
+  target_group_arn = var.lb_target_group_arn
+  target_id        = aws_instance.mtc_node[count.index].id
+  port             = 8000
+}
