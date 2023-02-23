@@ -69,7 +69,7 @@ resource "aws_instance" "mtc_node" {
   }
   provisioner "local-exec" {
     when    = destroy
-    command = "rm -f ${path.cwd}/../k3s-mtc_node-*"
+    command = "rm -f ${path.cwd}/../k3s-${self.tags.Name}.yaml"
   }
 }
 

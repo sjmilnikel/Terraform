@@ -47,9 +47,9 @@ module "compute" {
   source              = "./compute"
   public_sg           = module.networking.public_sg
   public_subnets      = module.networking.public_subnets
-  instance_count      = 2
+  instance_count      = 1
   instance_type       = "t3.micro"
-  vol_size            = "20"
+  vol_size            = 10
   public_key_path     = "/home/ubuntu/.ssh/keymtc.pub"
   key_name            = "keymtc"
   dbname              = var.dbname
