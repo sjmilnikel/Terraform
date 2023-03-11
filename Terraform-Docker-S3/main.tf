@@ -1,11 +1,11 @@
 
-# resource "aws_s3_bucket" "state" {
-#   bucket = "sjm-bucket23"
+resource "aws_s3_bucket" "state" {
+  bucket = "sjm-bucket23"
 
-# #   lifecycle {
-# #     prevent_destroy = true
-# #   }
-# }
+  lifecycle {
+    prevent_destroy = true
+  }
+}
 
 resource "aws_vpc" "vpc_ecs23" {
   cidr_block = "10.10.0.0/16"
