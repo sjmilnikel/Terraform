@@ -74,4 +74,8 @@ resource "aws_ecs_task_definition" "centos" {
       ]
     }
   ])
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4409f31bb666931976a7ac45f635ff0759243850
