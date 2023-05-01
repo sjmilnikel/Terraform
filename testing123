@@ -16,4 +16,4 @@ resource "aws_route_table" "mtc_public_rt" {
     }
 }
 
-resource "aw
+resource "aws_vpc"
